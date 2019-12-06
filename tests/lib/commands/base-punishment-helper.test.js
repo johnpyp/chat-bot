@@ -47,6 +47,21 @@ describe("BasePunishmentHelper Tests", () => {
     assert.deepStrictEqual(output, expected);
     done();
   });
+  it("punish one with empty reason", function(done) {
+    const input = "20m Bob";
+    const output = basePunishmentHelper(input, 3600);
+    const expected = [
+      {
+        userToPunish: "bob",
+        parsedDuration: 1200,
+        parsedReason: null,
+        isPermanent: false
+      }
+    ];
+
+    assert.deepStrictEqual(output, expected);
+    done();
+  });
   it("punish many with time", function(done) {
     const input = "20m Bob, Kogasa, MrMouton for being stupid";
     const output = basePunishmentHelper(input, 3600);
@@ -67,6 +82,33 @@ describe("BasePunishmentHelper Tests", () => {
         userToPunish: "mrmouton",
         parsedDuration: 1200,
         parsedReason: "for being stupid",
+        isPermanent: false
+      }
+    ];
+
+    assert.deepStrictEqual(output, expected);
+    done();
+  });
+  it("punish many with empty reason", function(done) {
+    const input = "20m Bob, Kogasa, MrMouton";
+    const output = basePunishmentHelper(input, 3600);
+    const expected = [
+      {
+        userToPunish: "bob",
+        parsedDuration: 1200,
+        parsedReason: null,
+        isPermanent: false
+      },
+      {
+        userToPunish: "kogasa",
+        parsedDuration: 1200,
+        parsedReason: null,
+        isPermanent: false
+      },
+      {
+        userToPunish: "mrmouton",
+        parsedDuration: 1200,
+        parsedReason: null,
         isPermanent: false
       }
     ];
